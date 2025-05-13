@@ -1,3 +1,8 @@
+# DCR whisper11@protonmail.com
+# 2025.05.13
+# To do:
+#   1. Add a function to clean up color selection.
+#
 
 import requests
 import os
@@ -5,21 +10,22 @@ import threading
 import time
 
 API_BASE = "https://api.nomi.ai/v1"
-API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXX" # Replace with your actual API key
+API_KEY = "ENTER YOUR API KEY HERE" # Replace with your actual API key
 HEADERS = {
     "Authorization": f"Bearer {API_KEY}",
     "Content-Type": "application/json"
 }
 
-colors = ("\033[0m", "\033[91m", "\033[92m", "\033[94m", "\033[95m", "\033[96m", "\033[93m")
+# This is a placeholder for the clear up of color codes
+# colors = ("\033[0m", "\033[91m", "\033[92m", "\033[94m", "\033[95m", "\033[96m", "\033[93m")
 
+# Class to hold color codes
 class bcolors:
     nomie_chat_color = '\033[0m'
     self_chat_color = '\033[0m'
     error_color = '\033[0m'
     menu = '\033[0m'
     end = '\033[0m'
-    
     purple = '\033[95m'
     blue = '\033[94m'
     cyan = '\033[96m'
@@ -29,9 +35,11 @@ class bcolors:
     bold = '\033[1m'
     underline = '\033[4m'
 
+# Function to clear the screen
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+# Function to display the color options and set the colors
 def color_choice():
     clear_screen()
     print("----------------------------------")
@@ -41,6 +49,7 @@ def color_choice():
     print(bcolors.purple + "4 = Purple" + "     " + bcolors.cyan + "5 = Cyan")
     print(bcolors.yellow + "6 = Yellow" + bcolors.end)
     print("----------------------------------\n")
+    # Get user input for menu colors
     menu_color = input(bcolors.menu + "Enter the number for the Menu color: ")
     if menu_color == "0":
         bcolors.menu = '\033[0m'
@@ -59,7 +68,7 @@ def color_choice():
     else:
         print(bcolors.error_color + "Invalid choice, defaulting to no color." + bcolors.menu)
         bcolors.menu = '\033[0m'
-      
+    # Get user input for self chat colors  
     self_chat_color = input(bcolors.menu + "Enter the number for the Self chat color: ")
     if self_chat_color == "0":
         bcolors.self_chat_color = '\033[0m'
@@ -78,7 +87,7 @@ def color_choice():
     else:
         print(bcolors.error_color + "Invalid choice, defaulting to no color." + bcolors.menu)
         bcolors.self_chat_color = '\033[0m'
-    
+    # Get user input for nomi chat colors
     nomie_chat_color = input(bcolors.menu + "Enter the number for the Nomi chat color: ")
     if nomie_chat_color == "0":
         bcolors.nomie_chat_color = '\033[0m'
@@ -97,9 +106,8 @@ def color_choice():
     else:
         print(bcolors.error_color + "Invalid choice, defaulting to no color." + bcolors.menu)
         bcolors.nomie_chat_color = '\033[0m'
-        
+    # Get user input for error colors    
     error_color = input(bcolors.menu + "Enter the number for the Error messages color: ")
-    # Set the colors based on user input
     if error_color == "0":
         bcolors.error_color = '\033[0m'
     elif error_color == "1":
@@ -128,7 +136,8 @@ def color_choice():
     print(bcolors.menu + "----------------------------------\n")
     print("Press Enter to return to the main menu.")
     input()
-        
+
+# Function to test connection to Nomi.ai        
 def connect_to_nomi():
     try:
         clear_screen()
@@ -146,6 +155,7 @@ def connect_to_nomi():
         print(f"An error occurred: {e}")
         bcolors.end
         
+# Function to list available Nomis        
 def list_nomies():
     clear_screen()
     response = requests.get(f"{API_BASE}/nomis", headers=HEADERS)
@@ -161,6 +171,7 @@ def list_nomies():
         print(bcolors.error_color + "Failed to fetch nomies:" + bcolors.menu, response.text)
         return []
 
+# Function to select a Nomi to chat with
 def select_nomies():
     clear_screen()
     response = requests.get(f"{API_BASE}/nomis", headers=HEADERS)
@@ -176,6 +187,7 @@ def select_nomies():
         print(bcolors.error_color + "Failed to fetch nomies:" + bcolors.menu, response.text)
         return []
 
+# Function to chat with a selected Nomi
 def chat_with_nomi(nomi_id, nomie_name):
     clear_screen()
     print(bcolors.menu + "----------------------------------" + bcolors.nomie_chat_color)
@@ -212,6 +224,7 @@ def chat_with_nomi(nomi_id, nomie_name):
         else:
             print(bcolors.error_color + "Error chatting with Nomi:" + bcolors.menu, response.text)
 
+# Main function to run the program
 def main():
     clear_screen()
     while True:
