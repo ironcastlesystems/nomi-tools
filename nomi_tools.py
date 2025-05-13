@@ -29,8 +29,11 @@ class bcolors:
     bold = '\033[1m'
     underline = '\033[4m'
 
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def color_choice():
-    os.system('cls')
+    clear_screen()
     print("----------------------------------")
     print("Color Options:")
     print(bcolors.end + "0 = Default" + "    " + bcolors.red +"1 = Red")
@@ -114,7 +117,7 @@ def color_choice():
     else:
         print(bcolors.error_color + "Invalid choice, defaulting to no color." + bcolors.menu)
     
-    os.system('cls')
+    clear_screen()
     print(bcolors.menu + "----------------------------------")
     print("Color Options Set!")
     print("----------------------------------\n")
@@ -125,10 +128,10 @@ def color_choice():
     print(bcolors.menu + "----------------------------------\n")
     print("Press Enter to return to the main menu.")
     input()
-
+        
 def connect_to_nomi():
     try:
-        os.system('cls')
+        clear_screen()
         response = requests.get(f"{API_BASE}/nomis", headers=HEADERS)
         if response.status_code == 200:
             print(bcolors.menu + "----------------------------------")
@@ -144,7 +147,7 @@ def connect_to_nomi():
         bcolors.end
         
 def list_nomies():
-    os.system('cls')
+    clear_screen()
     response = requests.get(f"{API_BASE}/nomis", headers=HEADERS)
     if response.status_code == 200:
         nomies = response.json().get("nomis", [])
@@ -159,7 +162,7 @@ def list_nomies():
         return []
 
 def select_nomies():
-    os.system('cls')
+    clear_screen()
     response = requests.get(f"{API_BASE}/nomis", headers=HEADERS)
     if response.status_code == 200:
         nomies = response.json().get("nomis", [])
@@ -174,7 +177,7 @@ def select_nomies():
         return []
 
 def chat_with_nomi(nomi_id, nomie_name):
-    os.system('cls')
+    clear_screen()
     print(bcolors.menu + "----------------------------------" + bcolors.nomie_chat_color)
     print(f"Chatting with {nomie_name} (ID: {nomi_id}")
     print(bcolors.menu + "Type 'exit' to end chat.")
@@ -210,7 +213,7 @@ def chat_with_nomi(nomi_id, nomie_name):
             print(bcolors.error_color + "Error chatting with Nomi:" + bcolors.menu, response.text)
 
 def main():
-    os.system('cls')
+    clear_screen()
     while True:
         print(bcolors.menu + "\nMain Menu:")
         print("1. List Nomis")
