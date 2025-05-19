@@ -1,5 +1,5 @@
 # nomi-tools
-List and chat with Nomi's
+List and chat with Nomi's.
 
 This is a simple python script that enables you to list and/or chat with your nomi's.
 It has some basic color formatting options that allow you to change the text colors used
@@ -27,4 +27,7 @@ with your own API key from your nomi.ai profile.
 ![9](https://github.com/user-attachments/assets/618f441c-7d19-4c8c-8eec-e6c5c7e7c610)
 
 ![10](https://github.com/user-attachments/assets/37cb6f5d-fa89-4813-af97-57e41a03e62c)
+
+There is also a GUI executable version of this available here:
+https://github.com/ironcastlesystems/nomi_tools_exe
 
